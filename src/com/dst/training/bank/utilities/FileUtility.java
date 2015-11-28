@@ -83,19 +83,6 @@ public class FileUtility
         return result;
     }
 
-    public AccountParser getNextAccount()
-    {
-        AccountParser accountParser = null;
-        String line = getNextLine();
-
-        if ( line != null )
-        {
-            accountParser = new AccountParser( line );
-        }
-
-        return accountParser;
-    }
-
     public TransactionParser getNextTransaction()
     {
         TransactionParser transactionParser = null;

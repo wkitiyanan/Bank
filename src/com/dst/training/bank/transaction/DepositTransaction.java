@@ -6,19 +6,23 @@ import com.dst.training.bank.account.Account;
 public class DepositTransaction extends Transaction{
 
 	@Override
-	public boolean process() {
-		
+	protected boolean validate() {
 		boolean valid = false;
 		Bank bank = Bank.getInstance();
 		Account fromAccount = bank.getAccount(getFromAccountNumber());
 		if(getAmount() > 0 && fromAccount != null){
 			valid = true;
+		} else {
+			System.out.println("ERROR: Cannot deposit to account " + getFromAccountNumber());
 		}
-		if(valid){
-			fromAccount.increaseBalance(getAmount());
-		}
-		
 		return valid;
+	}
+
+	@Override
+	protected void operate() {
+		Bank bank = Bank.getInstance();
+		Account fromAccount = bank.getAccount(getFromAccountNumber());
+		fromAccount.increaseBalance(getAmount());
 	}
 
 }

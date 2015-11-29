@@ -3,7 +3,7 @@ package com.dst.training.bank.account;
 import java.util.ArrayList;
 
 public class Accounts {
-	private ArrayList<Account> accountList;
+	private ArrayList<Account> accountList = new ArrayList<Account>();
 	
 	public void addAccount(Account account){
 		accountList.add(account);
@@ -19,5 +19,11 @@ public class Accounts {
 		}
 		
 		return resultAccount;
+	}
+	
+	public void print(){
+		for (Account account : accountList) {
+			System.out.println(account.toString());
+		}
 	}
 }

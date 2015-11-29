@@ -36,5 +36,7 @@ public class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	
+	public String toString(){
+		return String.format("%s %s %s", getAccountNumber(), getStatus(), getBalance());
+	}
 }

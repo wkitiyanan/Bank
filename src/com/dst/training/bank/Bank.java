@@ -18,15 +18,20 @@ public class Bank
     private TransactionFileUtility transactionFile = new TransactionFileUtility();
     
     public void process(){
+    	System.out.println("Loading...");
     	loadAccounts();
-    	processTransactions();
+    	System.out.println("\nBefore:");
+    	printAccounts();
     	
+    	System.out.println("processing...");
+    	processTransactions();
+    	System.out.println("\nAfter:");
     	printAccounts();
     }
     
     private void printAccounts() {
-    	// TODO Auto-generated method stub
-		
+		accounts.print();
+		System.out.println("");
 	}
 
 	private void processTransactions() {

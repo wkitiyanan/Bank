@@ -12,7 +12,14 @@ public abstract class Transaction implements ITransaction {
 	private double amount;
 	
 	@Override
-	public abstract boolean process();
+	public boolean process(){
+		boolean valid = validate();
+		if(valid){
+			operate();
+			transactionLog();
+		}
+		return valid;
+	}
 
 	@Override
 	public void build(TransactionParser tp){
@@ -43,6 +50,13 @@ public abstract class Transaction implements ITransaction {
 			}
 		}
 		return transaction;
+	}
+	
+	protected abstract boolean validate();
+	protected abstract void operate();
+	protected void transactionLog(){
+		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
+		System.out.printf("%-11s%11s Amount: %s\n", transactionName, getFromAccountNumber(), getAmount());
 	}
 
 	public String getFromAccountNumber() {

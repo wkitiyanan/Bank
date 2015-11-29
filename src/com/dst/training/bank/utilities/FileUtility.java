@@ -82,17 +82,4 @@ public class FileUtility
 
         return result;
     }
-
-    public TransactionParser getNextTransaction()
-    {
-        TransactionParser transactionParser = null;
-        String line = getNextLine();
-
-        if ( line != null )
-        {
-            transactionParser = new TransactionParser( line );
-        }
-
-        return transactionParser;
-    }
 }

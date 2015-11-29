@@ -7,12 +7,17 @@ public class Account {
 	private char status;
 	private double balance;
 	
-	public Account(AccountParser parser){
+	public void build(AccountParser parser){
 		accountNumber = parser.getAccountNumber();
 		status = parser.getStatus();
 		balance = parser.getBalance();
 	}
-	
+	public void increaseBalance(double amount){
+		setBalance(getBalance() + amount);
+	}
+	public void decreaseBalance(double amount){
+		setBalance(getBalance() - amount);
+	}
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -31,6 +36,5 @@ public class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	
 	
 }

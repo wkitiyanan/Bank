@@ -1,6 +1,5 @@
 package com.dst.training.bank.transaction;
 
-import com.dst.training.bank.Bank;
 import com.dst.training.bank.account.Account;
 
 public class WithdrawalTransaction extends Transaction{
@@ -8,14 +7,13 @@ public class WithdrawalTransaction extends Transaction{
 	@Override
 	protected boolean validate() {
 		boolean valid = false;
-		Bank bank = Bank.getInstance();
-		Account fromAccount = bank.getAccount(getFromAccountNumber());
-		if(getAmount() > 0
-				&& fromAccount != null
-				&& fromAccount.getBalance() >= getAmount()){
+		Account account = getFromAccount();
+		if(account != null
+				&& getAmount() > 0
+				&& account.getBalance() >= getAmount()){
 			valid = true;
 		} else {
-			System.out.println("ERROR: Cannot withdraw from " + getFromAccountNumber());
+			System.out.println("ERROR: Cannot withdraw from " + getFromAccount());
 		}
 		
 		return valid;
@@ -23,9 +21,8 @@ public class WithdrawalTransaction extends Transaction{
 
 	@Override
 	protected void operate() {
-		Bank bank = Bank.getInstance();
-		Account fromAccount = bank.getAccount(getFromAccountNumber());
-		fromAccount.decreaseBalance(getAmount());
-		if(fromAccount.getBalance() == 0) fromAccount.setStatus('C');
+		Account account = getFromAccount();
+		account.decreaseBalance(getAmount());
+		if(account.getBalance() == 0) account.setStatus('C');
 	}
 }

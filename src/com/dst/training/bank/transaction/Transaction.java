@@ -2,12 +2,14 @@ package com.dst.training.bank.transaction;
 
 import java.util.Date;
 
+import com.dst.training.bank.Bank;
+import com.dst.training.bank.account.Account;
 import com.dst.training.bank.utilities.TransactionParser;
 
 public abstract class Transaction implements ITransaction {
 
-	private String fromAccountNumber;
-	private String toAccountNumber;
+	private Account fromAccount;
+	private Account toAccount;
 	private Date processDate;
 	private double amount;
 	
@@ -15,6 +17,7 @@ public abstract class Transaction implements ITransaction {
 	public boolean process(){
 		boolean valid = validate();
 		if(valid){
+			activate();
 			operate();
 			transactionLog();
 		}
@@ -23,8 +26,9 @@ public abstract class Transaction implements ITransaction {
 
 	@Override
 	public void build(TransactionParser tp){
-		setFromAccountNumber(tp.getFromAccountNumber());
-		setToAccountNumber(tp.getToAccountNumber());
+		Bank bank = Bank.getInstance();
+		setFromAccount(bank.getAccount(tp.getFromAccountNumber()));
+		setToAccount(bank.getAccount(tp.getToAccountNumber()));
 		setProcessDate(tp.getProcessDate());
 		setAmount(tp.getAmount());
 	}
@@ -54,25 +58,35 @@ public abstract class Transaction implements ITransaction {
 	
 	protected abstract boolean validate();
 	protected abstract void operate();
+	
+	private void activate(){
+		if(getFromAccount() != null && getFromAccount().getStatus() == 'C'){
+			getFromAccount().setStatus('A');
+		}
+		if(getToAccount() != null && getToAccount().getStatus() == 'C'){
+			getToAccount().setStatus('A');
+		}
+	}
+	
 	protected void transactionLog(){
 		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
-		System.out.printf("%-11s%11s Amount: %s\n", transactionName, getFromAccountNumber(), getAmount());
+		System.out.printf("%-11s%11s Amount: %s\n", transactionName, getFromAccount(), getAmount());
 	}
 
-	public String getFromAccountNumber() {
-		return fromAccountNumber;
+	public Account getFromAccount() {
+		return fromAccount;
 	}
 
-	public void setFromAccountNumber(String fromAccountNumber) {
-		this.fromAccountNumber = fromAccountNumber;
+	public void setFromAccount(Account fromAccount) {
+		this.fromAccount = fromAccount;
 	}
 
-	public String getToAccountNumber() {
-		return toAccountNumber;
+	public Account getToAccount() {
+		return toAccount;
 	}
 
-	public void setToAccountNumber(String toAccountNumber) {
-		this.toAccountNumber = toAccountNumber;
+	public void setToAccount(Account toAccount) {
+		this.toAccount = toAccount;
 	}
 
 	public Date getProcessDate() {

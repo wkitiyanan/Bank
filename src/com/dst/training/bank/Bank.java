@@ -20,16 +20,24 @@ public class Bank
     public void process(){
     	System.out.println("Loading...");
     	loadAccounts();
-    	System.out.println("\nBefore:");
+    	
+    	System.out.println("\nAccount List(Before):");
     	printAccounts();
     	
     	System.out.println("processing...");
     	processTransactions();
-    	System.out.println("\nAfter:");
+    	
+    	System.out.println("\nAccount List(After):");
     	printAccounts();
     }
     
     private void printAccounts() {
+    	String header1 = "Account No.";
+    	String header2 = "Status";
+    	String header3 = "Balance";
+    	String divider = "-------------------------------------";
+    	System.out.printf("%-15s %-15s %-15s %n", header1, header2, header3);
+    	System.out.println(divider);
 		accounts.print();
 		System.out.println("");
 	}

@@ -6,6 +6,17 @@ import com.dst.training.bank.Bank;
 import com.dst.training.bank.account.Account;
 import com.dst.training.bank.utilities.TransactionParser;
 
+/**
+*
+*Class description
+*
+* A class describes the abstraction of transactions
+* validate() and operate() method are needed to be implemented for subclasses
+* Also, handle static method to produce concrete-class object for Bank
+*
+* @author  Woranat Kitiyanan
+*/
+
 public abstract class Transaction implements ITransaction {
 
 	private Account fromAccount;
@@ -13,11 +24,14 @@ public abstract class Transaction implements ITransaction {
 	private Date processDate;
 	private double amount;
 	
+	protected abstract boolean validate();
+	protected abstract void operate();
+	
 	@Override
 	public boolean process(){
 		boolean valid = validate();
 		if(valid){
-			activate();
+			activateAccounts();
 			operate();
 			transactionLog();
 		}
@@ -56,23 +70,25 @@ public abstract class Transaction implements ITransaction {
 		return transaction;
 	}
 	
-	protected abstract boolean validate();
-	protected abstract void operate();
-	
-	private void activate(){
-		if(getFromAccount() != null && getFromAccount().getStatus() == 'C'){
+	private void activateAccounts(){
+		activateAccount(getFromAccount());
+		activateAccount(getToAccount());
+	}
+
+	private void activateAccount(Account account) {
+		if(account != null && account.getStatus() == 'C'){
 			getFromAccount().setStatus('A');
-			System.out.println(getFromAccount().getAccountNumber() + " is activated");
-		}
-		if(getToAccount() != null && getToAccount().getStatus() == 'C'){
-			getToAccount().setStatus('A');
-			System.out.println(getToAccount().getAccountNumber() + " is activated");
+			accountActivationLog(account);
 		}
 	}
-	
+
+	private void accountActivationLog(Account account) {
+		System.out.println("Account " + account.getAccountNumber() + " is activated!");
+	}
+
 	protected void transactionLog(){
 		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
-		System.out.printf("%-11s%11s Amount: %s\n", transactionName, getFromAccount(), getAmount());
+		System.out.printf("%-11s %11s Amount: %s %n", transactionName, getFromAccount().getAccountNumber(), getAmount());
 	}
 
 	public Account getFromAccount() {

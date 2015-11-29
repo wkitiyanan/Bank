@@ -37,6 +37,6 @@ public class Account {
 		this.balance = balance;
 	}
 	public String toString(){
-		return String.format("%s %s %s", getAccountNumber(), getStatus(), getBalance());
+		return String.format("%-15s %-15s %-15s", getAccountNumber(), getStatus(), getBalance());
 	}
 }

@@ -62,9 +62,11 @@ public abstract class Transaction implements ITransaction {
 	private void activate(){
 		if(getFromAccount() != null && getFromAccount().getStatus() == 'C'){
 			getFromAccount().setStatus('A');
+			System.out.println(getFromAccount().getAccountNumber() + " is activated");
 		}
 		if(getToAccount() != null && getToAccount().getStatus() == 'C'){
 			getToAccount().setStatus('A');
+			System.out.println(getToAccount().getAccountNumber() + " is activated");
 		}
 	}
 	

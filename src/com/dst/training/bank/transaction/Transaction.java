@@ -83,6 +83,14 @@ public abstract class Transaction implements ITransaction {
 				transaction = new CloseTransaction();
 				break;
 			}
+			case 'P': {
+				transaction = new PurgeTransaction();
+				break;
+			}
+			case 'T': {
+				transaction = new TransferTransaction();
+				break;
+			}
 			default :{
 				System.out.printf("[ERROR]      Transaction type '%s' is not valid!%n", parser.getTransactionType());
 			}
@@ -117,7 +125,8 @@ public abstract class Transaction implements ITransaction {
 	protected void transactionLog(){
 		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
 		String message = valid ? "[SUCCESS]":"[ERROR]";
-		System.out.printf("%-13s%-11s %11s Amount: %s %n", message, transactionName, getFromAccount().getAccountNumber(), getAmount());
+		String toAccountNumber = getToAccount() !=  null ? "TO "+getToAccount().getAccountNumber() : "";
+		System.out.printf("%-13s%-11s %11s %14s Amount: %s %n", message, transactionName, getFromAccount().getAccountNumber(), toAccountNumber, getAmount());
 	}
 
 	public Account getFromAccount() {

@@ -24,6 +24,9 @@ public class Accounts {
 		accountList.add(account);
 	}
 	
+	public void removeAccount(Account account) {
+		accountList.remove(account);
+	}
 	/**
 	* Get account from list by account number
 	*
@@ -47,4 +50,5 @@ public class Accounts {
 			System.out.println(account.toString());
 		}
 	}
+
 }

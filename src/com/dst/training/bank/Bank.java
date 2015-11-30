@@ -36,12 +36,12 @@ public class Bank
     public void process(){
     	loadAccounts();
     	
-    	System.out.println("\nAccount List(Before):");
+    	System.out.println("\n           Account List(Before)");
     	printAccounts();
     	
     	processTransactions();
     	
-    	System.out.println("\nAccount List(After):");
+    	System.out.println("\n           Account List(After)");
     	printAccounts();
     }
 
@@ -100,6 +100,9 @@ public class Bank
     
     public void addAccount(Account account) {
     	accounts.addAccount(account);
+    }
+    public void removeAccount(Account account) {
+    	accounts.removeAccount(account);
     }
     public Account getAccount(String accountNumber){
     	return accounts.getAccount(accountNumber);

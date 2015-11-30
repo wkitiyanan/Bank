@@ -6,6 +6,7 @@ import com.dst.training.bank.transaction.ITransaction;
 import com.dst.training.bank.transaction.Transaction;
 import com.dst.training.bank.utilities.AccountFileUtility;
 import com.dst.training.bank.utilities.AccountParser;
+import com.dst.training.bank.utilities.FileUtility;
 import com.dst.training.bank.utilities.TransactionFileUtility;
 import com.dst.training.bank.utilities.TransactionParser;
 
@@ -43,9 +44,11 @@ public class Bank
     	
     	System.out.println("\n           Account List(After)");
     	printAccounts();
+    	
+    	writeMasterFile();
     }
 
-    /**
+	/**
     * Load all accounts from master file into the list of accounts
     *
     * @return void
@@ -81,6 +84,16 @@ public class Bank
 			
 			transactionData = transactionFile.getNextTransaction();
 		}
+	}
+	
+    /**
+     * Write to files/Master_New.txt
+     *
+     * @return void
+     */
+    private void writeMasterFile() {
+		FileUtility fileUtility = new FileUtility();
+		fileUtility.writeFile("files/Master_New.txt", accounts.getAccountList());
 	}
 	
 	/**

@@ -4,7 +4,7 @@ import com.dst.training.bank.utilities.AccountParser;
 
 /**
 *
-*Class description
+* Class description
 *
 * A class represents the structure of a bank account
 *
@@ -63,7 +63,10 @@ public class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	public void print(){
+		System.out.printf("%-15s %-15s %-15.2f%n", getAccountNumber(), getStatus(), getBalance());
+	}
 	public String toString(){
-		return String.format("%-15s %-15s %-15.2f", getAccountNumber(), getStatus(), getBalance());
+		return getAccountNumber()+getStatus()+ String.format("%015d", (int)getBalance());
 	}
 }

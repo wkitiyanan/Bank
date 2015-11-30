@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Accounts {
 	private ArrayList<Account> accountList = new ArrayList<Account>();
-	
+
 	/**
 	* Add account to list
 	*
@@ -47,8 +47,11 @@ public class Accounts {
 	
 	public void print(){
 		for (Account account : accountList) {
-			System.out.println(account.toString());
+			account.print();
 		}
 	}
 
+	public ArrayList<Account> getAccountList() {
+		return accountList;
+	}
 }

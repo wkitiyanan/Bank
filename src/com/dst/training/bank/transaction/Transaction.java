@@ -8,11 +8,11 @@ import com.dst.training.bank.utilities.TransactionParser;
 
 /**
 *
-*Class description
+* Class description
 *
 * A class describes the abstraction of transactions
 * validate() and operate() method are needed to be implemented for subclasses
-* Also, handle static method to produce concrete-class object for Bank
+* Also, handle static method to produce different types of concrete-class objects for Bank
 *
 * @author  Woranat Kitiyanan
 */
@@ -23,30 +23,47 @@ public abstract class Transaction implements ITransaction {
 	private Account toAccount;
 	private Date processDate;
 	private double amount;
+	private boolean valid;
 	
 	protected abstract boolean validate();
 	protected abstract void operate();
 	
+    /**
+     * Process all steps needed for a transaction
+     * Invalid transaction will be not operated
+     * @return true if transaction is valid
+     */
 	@Override
 	public boolean process(){
-		boolean valid = validate();
+		valid = validate();
 		if(valid){
 			activateAccounts();
 			operate();
-			transactionLog();
 		}
+		transactionLog();
 		return valid;
 	}
 
+	/**
+     * Populate values from transaction parser into itself
+     * @param tp the TransactionParser
+     * @return void
+     */
 	@Override
 	public void build(TransactionParser tp){
 		Bank bank = Bank.getInstance();
+		
 		setFromAccount(bank.getAccount(tp.getFromAccountNumber()));
 		setToAccount(bank.getAccount(tp.getToAccountNumber()));
 		setProcessDate(tp.getProcessDate());
 		setAmount(tp.getAmount());
 	}
 
+    /**
+     * Static method to instantiate transaction with different types
+     * depends on method getTransactionType() of TransactionParser
+     * @return Interface of transaction
+     */
 	public static ITransaction getTransaction(TransactionParser parser) {
 		ITransaction transaction = null;
 		switch(parser.getTransactionType()){
@@ -66,15 +83,26 @@ public abstract class Transaction implements ITransaction {
 				transaction = new CloseTransaction();
 				break;
 			}
+			default :{
+				System.out.printf("[ERROR]      Transaction type '%s' is not valid!%n", parser.getTransactionType());
+			}
 		}
 		return transaction;
 	}
 	
+    /**
+     * Try to activate involved accounts (fromAccount and toAccount)
+     * @return void
+     */
 	private void activateAccounts(){
 		activateAccount(getFromAccount());
 		activateAccount(getToAccount());
 	}
 
+	/**
+     * Activate account if not null and status is 'C'lose
+     * @return void
+     */
 	private void activateAccount(Account account) {
 		if(account != null && account.getStatus() == 'C'){
 			getFromAccount().setStatus('A');
@@ -83,12 +111,13 @@ public abstract class Transaction implements ITransaction {
 	}
 
 	private void accountActivationLog(Account account) {
-		System.out.println("Account " + account.getAccountNumber() + " is activated!");
+		System.out.println("[Activation] " + account.getAccountNumber() + " is activated!");
 	}
 
 	protected void transactionLog(){
 		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
-		System.out.printf("%-11s %11s Amount: %s %n", transactionName, getFromAccount().getAccountNumber(), getAmount());
+		String message = valid ? "[SUCCESS]":"[ERROR]";
+		System.out.printf("%-13s%-11s %11s Amount: %s %n", message, transactionName, getFromAccount().getAccountNumber(), getAmount());
 	}
 
 	public Account getFromAccount() {

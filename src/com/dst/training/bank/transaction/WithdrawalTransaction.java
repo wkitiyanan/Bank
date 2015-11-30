@@ -8,12 +8,12 @@ public class WithdrawalTransaction extends Transaction{
 	protected boolean validate() {
 		boolean valid = false;
 		Account account = getFromAccount();
-		if(account != null
-				&& getAmount() > 0
-				&& account.getBalance() >= getAmount()){
+		
+		//This transaction will be valid if
+		if(account != null // the account is existing
+				&& getAmount() > 0 // amount is greater than zero
+				&& account.getBalance() >= getAmount()){ //balance is greater than or equals to withdrawal amount
 			valid = true;
-		} else {
-			System.out.println("ERROR: Cannot withdraw from " + getFromAccount());
 		}
 		
 		return valid;
@@ -23,6 +23,8 @@ public class WithdrawalTransaction extends Transaction{
 	protected void operate() {
 		Account account = getFromAccount();
 		account.decreaseBalance(getAmount());
+		
+		//Account is closed when the balance is zero
 		if(account.getBalance() == 0) account.setStatus('C');
 	}
 }

@@ -3,6 +3,7 @@ package com.dst.training.bank.utilities;
 public class TransactionFileUtility extends FileUtility {
 
 	private final String transactionFileName = "files/Trans.txt";
+	
 	public TransactionFileUtility(){
 		openReadFile(transactionFileName);
 	}

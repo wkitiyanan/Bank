@@ -8,10 +8,10 @@ public class CloseTransaction extends Transaction{
 	protected boolean validate() {
 		boolean valid = false;
 		Account account = getFromAccount();
+		
+		//Invalid if account does not exist or balance is not zero
 		if(account != null && account.getBalance() == 0){
 			valid = true;
-		} else {
-			System.out.println("ERROR: Cannot close account " + account);
 		}
 		return valid;
 	}

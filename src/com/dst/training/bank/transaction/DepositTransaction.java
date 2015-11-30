@@ -8,11 +8,12 @@ public class DepositTransaction extends Transaction{
 	protected boolean validate() {
 		boolean valid = false;
 		Account account = getFromAccount();
+		
+		//Amount must be greater than zero and account must be existing to be valid
 		if(account != null && getAmount() > 0){
 			valid = true;
-		} else {
-			System.out.println("ERROR: Cannot deposit to account " + getFromAccount());
 		}
+		
 		return valid;
 	}
 

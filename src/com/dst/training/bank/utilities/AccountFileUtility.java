@@ -3,6 +3,7 @@ package com.dst.training.bank.utilities;
 public class AccountFileUtility extends FileUtility {
 
 	private final String masterFileName = "files/Master.txt";
+	
 	public AccountFileUtility(){
 		openReadFile(masterFileName);
 	}

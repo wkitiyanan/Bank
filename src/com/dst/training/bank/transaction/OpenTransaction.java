@@ -8,7 +8,15 @@ public class OpenTransaction extends Transaction{
 
 	@Override
 	protected boolean validate() {
-		return true;
+		boolean valid = false;
+		String accountNumber = getFromAccount().getAccountNumber();
+
+		//Valid if the new account does not exist in the bank system
+		if(Bank.getInstance().getAccount(accountNumber) == null){
+			valid = true;
+		}
+		
+		return valid;
 	}
 
 	@Override
@@ -20,6 +28,7 @@ public class OpenTransaction extends Transaction{
 	public void build(TransactionParser tp){
 		super.build(tp);
 		
+		//Instantiate account because the opened account does not exist yet
 		Account account = new Account();
 		account.setStatus('A');
 		account.setAccountNumber(tp.getFromAccountNumber());

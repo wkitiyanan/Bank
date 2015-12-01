@@ -14,6 +14,7 @@ import com.dst.training.bank.utilities.TransactionParser;
 *
 * The class that controls the flow of system containing files of accounts and transactions
 * Mostly, accounts and transactions are built and process here
+* Can be only instantiated by static method getInstance()
 * Have only one instance in application (Singleton design pattern)
 *
 * @author  Woranat Kitiyanan
@@ -30,6 +31,7 @@ public class Bank
     private String transactionFileName = "files/Trans.txt";
     private FileUtility transactionFile = new FileUtility();
     
+    private Bank(){}
     /**
     * Proceed the flow of system
     *

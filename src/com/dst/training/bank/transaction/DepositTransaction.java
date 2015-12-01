@@ -2,6 +2,15 @@ package com.dst.training.bank.transaction;
 
 import com.dst.training.bank.account.Account;
 
+/**
+*
+* Class description
+*
+* Class for 'D'eposit transaction
+*
+* @author  Woranat Kitiyanan
+*/
+
 public class DepositTransaction extends Transaction{
 
 	@Override

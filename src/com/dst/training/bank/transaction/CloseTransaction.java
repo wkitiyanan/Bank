@@ -2,6 +2,15 @@ package com.dst.training.bank.transaction;
 
 import com.dst.training.bank.account.Account;
 
+/**
+*
+* Class description
+*
+* Class for 'C'lose transaction
+*
+* @author  Woranat Kitiyanan
+*/
+
 public class CloseTransaction extends Transaction{
 
 	@Override

@@ -2,6 +2,15 @@ package com.dst.training.bank.transaction;
 
 import com.dst.training.bank.account.Account;
 
+/**
+*
+* Class description
+*
+* Class for 'W'ithdrawal transaction
+*
+* @author  Woranat Kitiyanan
+*/
+
 public class WithdrawalTransaction extends Transaction{
 
 	@Override
@@ -9,10 +18,10 @@ public class WithdrawalTransaction extends Transaction{
 		boolean valid = false;
 		Account account = getFromAccount();
 		
-		//This transaction will be valid if
-		if(account != null // the account is existing
-				&& getAmount() > 0 // amount is greater than zero
-				&& account.getBalance() >= getAmount()){ //balance is greater than or equals to withdrawal amount
+															//This transaction will be valid if
+		if(account != null 									// the account is existing
+				&& getAmount() > 0 							// amount is greater than zero
+				&& account.getBalance() >= getAmount()){ 	// balance is greater than or equals to withdrawal amount
 			valid = true;
 		}
 		

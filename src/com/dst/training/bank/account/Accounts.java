@@ -7,6 +7,8 @@ import java.util.ArrayList;
 * Class description
 *
 * A class contains the list of accounts and logic to manage them
+* This class is created to reduce complexity of the Bank class
+* The Bank class does not need to contain too much logic to control account list
 *
 * @author  Woranat Kitiyanan
 */
@@ -24,9 +26,16 @@ public class Accounts {
 		accountList.add(account);
 	}
 	
+	/**
+	* Remove account from list
+	*
+	* @param instance of account to be removed
+	* @return void
+	*/
 	public void removeAccount(Account account) {
 		accountList.remove(account);
 	}
+	
 	/**
 	* Get account from list by account number
 	*
@@ -45,12 +54,22 @@ public class Accounts {
 		return resultAccount;
 	}
 	
+	/**
+	* Print all accounts in the list
+	*
+	* @return void
+	*/
 	public void print(){
 		for (Account account : accountList) {
 			account.print();
 		}
 	}
 
+	/**
+	* Getter for accountList
+	*
+	* @return ArrayList of accounts
+	*/
 	public ArrayList<Account> getAccountList() {
 		return accountList;
 	}

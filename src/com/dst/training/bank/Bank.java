@@ -4,10 +4,8 @@ import com.dst.training.bank.account.Account;
 import com.dst.training.bank.account.Accounts;
 import com.dst.training.bank.transaction.ITransaction;
 import com.dst.training.bank.transaction.Transaction;
-import com.dst.training.bank.utilities.AccountFileUtility;
 import com.dst.training.bank.utilities.AccountParser;
 import com.dst.training.bank.utilities.FileUtility;
-import com.dst.training.bank.utilities.TransactionFileUtility;
 import com.dst.training.bank.utilities.TransactionParser;
 
 /**
@@ -26,8 +24,11 @@ public class Bank
     private static Bank instance;
     private Accounts accounts = new Accounts();
     
-    private AccountFileUtility accountFile = new AccountFileUtility();
-    private TransactionFileUtility transactionFile = new TransactionFileUtility();
+    private String accountFileName = "files/Master.txt";
+    private FileUtility accountFile = new FileUtility();
+    
+    private String transactionFileName = "files/Trans.txt";
+    private FileUtility transactionFile = new FileUtility();
     
     /**
     * Proceed the flow of system
@@ -55,8 +56,12 @@ public class Bank
     */
     private void loadAccounts(){
     	System.out.println("Loading accounts...");
+    	
+    	//Open and read account data from the file
+    	accountFile.openReadFile(accountFileName);
     	AccountParser accountData = accountFile.getNextAccount();
     	
+    	//Instantiate, populate and add all accounts retrieved from the master file
     	while(accountData != null){
     		Account account = new Account();
     		account.build(accountData);
@@ -72,8 +77,11 @@ public class Bank
      */
 	private void processTransactions() {
 		System.out.println("Processing transactions...");
+		
+		transactionFile.openReadFile(transactionFileName);
 		TransactionParser transactionData = transactionFile.getNextTransaction();
 		
+		// Build and execute all transactions retrieved from the file except invalid transactions
 		while(transactionData != null){
 			ITransaction transaction = Transaction.getTransaction(transactionData);
 			

@@ -4,6 +4,15 @@ import com.dst.training.bank.Bank;
 import com.dst.training.bank.account.Account;
 import com.dst.training.bank.utilities.TransactionParser;
 
+/**
+*
+* Class description
+*
+* Class for 'O'pen transaction
+*
+* @author  Woranat Kitiyanan
+*/
+
 public class OpenTransaction extends Transaction{
 
 	@Override

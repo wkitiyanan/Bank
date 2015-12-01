@@ -1,5 +1,7 @@
 package com.dst.training.bank.transaction;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.dst.training.bank.Bank;
@@ -25,13 +27,26 @@ public abstract class Transaction implements ITransaction {
 	private double amount;
 	private boolean valid;
 	
+	/**
+     * Abstraction of validation process
+     * Subclasses need to implement this method
+     * to describe conditions that will make themselves valid
+     * @return true if transaction is valid
+     */
 	protected abstract boolean validate();
+	
+	/**
+     * Abstraction of how operation process
+     * Subclasses need to implement this method
+     * to describe transaction execution step
+     * @return void
+     */
 	protected abstract void operate();
 	
     /**
      * Process all steps needed for a transaction
      * Invalid transaction will be not operated
-     * @return true if transaction is valid
+     * @return true if transaction is valid and processed
      */
 	@Override
 	public boolean process(){
@@ -122,11 +137,18 @@ public abstract class Transaction implements ITransaction {
 		System.out.println("[Activation] " + account.getAccountNumber() + " is activated!");
 	}
 
+	/**
+     * Log transaction results
+     * @return void
+     */
 	protected void transactionLog(){
 		String transactionName = this.getClass().getSimpleName().replace("Transaction", "");
 		String message = valid ? "[SUCCESS]":"[ERROR]";
 		String toAccountNumber = getToAccount() !=  null ? "TO "+getToAccount().getAccountNumber() : "";
-		System.out.printf("%-13s%-11s %11s %14s Amount: %s %n", message, transactionName, getFromAccount().getAccountNumber(), toAccountNumber, getAmount());
+		DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+		String formattedDate = dateFormatter.format(getProcessDate());
+		String formatString = "%-13s%-13s %-11s %11s %14s Amount: %s %n";
+		System.out.printf(formatString, message, formattedDate,transactionName, getFromAccount().getAccountNumber(), toAccountNumber, getAmount());
 	}
 
 	public Account getFromAccount() {

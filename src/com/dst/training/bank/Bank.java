@@ -32,6 +32,7 @@ public class Bank
     private FileUtility transactionFile = new FileUtility();
     
     private Bank(){}
+    
     /**
     * Proceed the flow of system
     *

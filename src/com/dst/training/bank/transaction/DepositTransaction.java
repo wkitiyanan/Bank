@@ -16,10 +16,8 @@ public class DepositTransaction extends Transaction{
 	@Override
 	protected boolean validate() {
 		boolean valid = false;
-		Account account = getFromAccount();
 		
-		//Amount must be greater than zero and account must be existing to be valid
-		if(account != null && getAmount() > 0){
+		if(hasFromAccount()){
 			valid = true;
 		}
 		

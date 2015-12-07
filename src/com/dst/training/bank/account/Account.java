@@ -13,8 +13,8 @@ import com.dst.training.bank.utilities.AccountParser;
 
 public class Account {
 	private String accountNumber;
-	private char status;
-	private double balance;
+	private char status = 'A';
+	private double balance = 0;
 	
 	/**
 	* Populate values from AccountParser to itself
@@ -43,6 +43,20 @@ public class Account {
 	*/
 	public void decreaseBalance(double amount){
 		setBalance(getBalance() - amount);
+	}
+	
+	public void activate(){
+		if(getStatus() == 'C'){
+			setStatus('A');
+			System.out.println( "[Activation] " + getAccountNumber()
+			+ " is activated!" );
+		}
+	}
+	
+	public void close(){
+		if(getStatus() == 'A'){
+			setStatus('C');
+		}
 	}
 	
 	public String getAccountNumber() {

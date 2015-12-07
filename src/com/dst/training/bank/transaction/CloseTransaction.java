@@ -1,33 +1,43 @@
+
 package com.dst.training.bank.transaction;
+
 
 import com.dst.training.bank.account.Account;
 
+
 /**
-*
-* Class description
-*
-* Class for 'C'lose transaction
-*
-* @author  Woranat Kitiyanan
-*/
+ * 
+ * Class description
+ * 
+ * Class for 'C'lose transaction
+ * 
+ * @author Woranat Kitiyanan
+ */
 
-public class CloseTransaction extends Transaction{
+public class CloseTransaction extends Transaction
+{
 
-	@Override
-	protected boolean validate() {
-		boolean valid = false;
-		Account account = getFromAccount();
-		
-		//Invalid if account does not exist or balance is not zero
-		if(account != null && account.getBalance() == 0){
-			valid = true;
-		}
-		return valid;
-	}
+    @Override
+    protected boolean validate()
+    {
+        boolean valid = false;
 
-	@Override
-	protected void operate() {
-		getFromAccount().setStatus('C');
-	}
-	
+        /*
+         * TODO Consider an isClosable method for reuse in Withdrawal, and
+         * eliminate a little repeated code.
+         * 
+         * FIXED Already extracted to isClosable() method
+         */
+        if ( hasFromAccount() && isClosable()) {
+            valid = true;
+        }
+        return valid;
+    }
+
+    @Override
+    protected void operate()
+    {
+        getFromAccount().close();;
+    }
+
 }

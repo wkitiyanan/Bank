@@ -17,8 +17,8 @@ public class PurgeTransaction extends Transaction {
 	protected boolean validate() {
 		boolean valid = false;
 		
-		//Transaction is valid when the account exists and balance is zero
-		if(getFromAccount() != null && getFromAccount().getBalance() == 0){
+		// TODO this might be another place you can reuse an isClosable method.
+		if(hasFromAccount() && isClosable()){
 			valid = true;
 		}
 		

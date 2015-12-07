@@ -15,10 +15,8 @@ public class TransferTransaction extends Transaction {
 	protected boolean validate() {
 		boolean valid = false;
 		
-		if(getFromAccount() != null						//Debit account exists
-				&& getToAccount() != null				//Credit accout exists
-				&& getFromAccount().getBalance() >= getAmount()){ //Debit account balance is greater than Credit account balance
-			valid = true;								//Transaction is valid
+		if(hasFromAccount() && hasToAccount() && hasEnoughBalance()){
+			valid = true;					
 		}
 		
 		return valid;

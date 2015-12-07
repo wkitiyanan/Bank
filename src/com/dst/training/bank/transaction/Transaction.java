@@ -74,7 +74,7 @@ public abstract class Transaction implements ITransaction
          * good logging practices, but I wanted to explain why it's not enough
          * to just log "success" or "error" in transactionLog.
          * 
-         * FIXED Validation process will collect error messages show once error happens 
+         * FIXED Validation process will collect error messages to be shown once error happens 
          */
         valid = validate();
         if ( valid )

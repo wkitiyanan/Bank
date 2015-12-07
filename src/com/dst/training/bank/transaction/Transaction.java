@@ -338,13 +338,4 @@ public abstract class Transaction implements ITransaction
     {
         this.amount = amount;
     }
-
-	public ArrayList<String> getErrorMessage() {
-		return errorMessages;
-	}
-
-	public void setErrorMessage(ArrayList<String> errorMessage) {
-		this.errorMessages = errorMessage;
-	}
-
 }
